@@ -1,14 +1,14 @@
-# Export & Import Web for Odoo 17
+# Export & Import Web for Odoo 19
 
-[![Odoo Version](https://img.shields.io/badge/Odoo-17.0-875A7B.svg?style=flat-square)](https://www.odoo.com)
-[![License](https://img.shields.io/badge/License-OPL--1-blue.svg?style=flat-square)](https://www.odoo.com/documentation/17.0/legal/licenses.html)
+[![Odoo Version](https://img.shields.io/badge/Odoo-19.0-875A7B.svg?style=flat-square)](https://www.odoo.com)
+[![License](https://img.shields.io/badge/License-OPL--1-blue.svg?style=flat-square)](https://www.odoo.com/documentation/19.0/legal/licenses.html)
 [![Price](https://img.shields.io/badge/Price-USD%2027.50-green.svg?style=flat-square)](https://apps.odoo.com)
 [![CE+EE](https://img.shields.io/badge/Edition-CE%20%26%20EE-purple.svg?style=flat-square)](https://www.odoo.com)
 
 **Backup and restore your entire Odoo website with a single ZIP file.**
 
 Export pages, menus, custom views, media attachments, and optionally blog posts, events,
-and eCommerce catalog content. Restore to the same database or another Odoo 17 instance
+and eCommerce catalog content. Restore to the same database or another Odoo 19 instance
 with automatic ID remapping, URL rewriting, safety snapshots, and full rollback on failure.
 
 ---
@@ -32,14 +32,14 @@ with automatic ID remapping, URL rewriting, safety snapshots, and full rollback 
 
 | Feature | Details |
 |---|---|
-| Odoo version | 17.0 |
+| Odoo version | 19.0 |
 | Editions | Community & Enterprise |
 | Hosting | Self-hosted, Odoo.sh |
 | Python | 3.10+ |
 | PostgreSQL | 12+ |
 | Extra packages | None required |
 
-> ⚠ Restore only between instances running the **same Odoo version** (17.0).
+> ⚠ Restore only between instances running the **same Odoo version** (19.0).
 
 ---
 
@@ -100,7 +100,7 @@ Go to **Website → Export & Import Web → Configuration** (or **Settings → W
 
 ## ⚠ Limitations (v1.0)
 
-- Restore only between Odoo **17.0** instances (same version required)
+- Restore only between Odoo **19.0** instances (same version required)
 - No scheduled backups — manual only
 - No external storage (S3, SFTP) — ZIP downloaded to browser
 - Transactional data not included: orders, event registrations, blog comments, stock

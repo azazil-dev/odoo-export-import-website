@@ -153,18 +153,18 @@ class ExportImportWebBackup(models.Model):
         """Schedule backup as a cron one-shot job and return immediately."""
         self.ensure_one()
         self.write({'state': 'running'})
-        self.env['ir.cron'].sudo().create({
+        cron = self.env['ir.cron'].sudo().create({
             'name': f'EIW Backup #{self.id}: {self.name}',
             'model_id': self.env['ir.model'].sudo().search(
                 [('model', '=', self._name)], limit=1
             ).id,
             'state': 'code',
             'code': f"model.browse({self.id})._run_backup_job()",
-            'numbercall': 1,
             'nextcall': fields.Datetime.now(),
             'active': True,
             'priority': 5,
         })
+        cron._trigger()
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
@@ -213,6 +213,13 @@ class ExportImportWebBackup(models.Model):
             self.write({'state': 'error', 'result_log': str(exc)})
             self.message_post(body=_('❌ Backup failed: %s') % str(exc))
             _logger.exception('EIW backup #%s failed', self.id)
+        finally:
+            cron = self.env['ir.cron'].sudo().search([
+                ('model_name', '=', self._name),
+                ('code', '=', f"model.browse({self.id})._run_backup_job()"),
+            ])
+            if cron:
+                cron.unlink()
 
     # ------------------------------------------------------------------ #
     # Retention                                                            #

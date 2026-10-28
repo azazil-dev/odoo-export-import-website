@@ -76,8 +76,6 @@ class WebsiteExporter(models.AbstractModel):
         if not websites:
             raise UserError(_('No websites selected for backup.'))
 
-        self._module_cache = {}  # reset per-export module check cache
-
         website_data = []
         all_attachment_uids = {}  # uid → attachment record (shared across websites)
 
@@ -576,15 +574,11 @@ class WebsiteExporter(models.AbstractModel):
     # ------------------------------------------------------------------ #
     @api.model
     def _module_installed(self, module_name):
-        cache = getattr(self, '_module_cache', {})
-        if module_name not in cache:
-            cache[module_name] = bool(
-                self.env['ir.module.module'].sudo().search(
-                    [('name', '=', module_name), ('state', '=', 'installed')], limit=1
-                )
+        return bool(
+            self.env['ir.module.module'].sudo().search(
+                [('name', '=', module_name), ('state', '=', 'installed')], limit=1
             )
-            self._module_cache = cache
-        return cache[module_name]
+        )
 
     # ------------------------------------------------------------------ #
     # ZIP builder                                                          #
@@ -628,8 +622,8 @@ class WebsiteExporter(models.AbstractModel):
 
         return {
             'module': 'export_import_web',
-            'module_version': '17.0.1.0.0',
-            'odoo_version': odoo.release.version[:4],  # '17.0'
+            'module_version': '19.0.1.0.0',
+            'odoo_version': odoo.release.version[:4],  # '19.0'
             'websites': website_list,
             'installed_modules': installed_mods,
             'counts': counts,
