@@ -438,6 +438,16 @@ class WebsiteImporter(models.AbstractModel):
                 view = self.env['ir.ui.view'].search(
                     [('key', '=', view_key), ('website_id', '=', website.id)], limit=1
                 )
+                if not view:
+                    # Fallback to global / template view
+                    view = self.env['ir.ui.view'].search(
+                        [('key', '=', view_key), ('website_id', '=', False)], limit=1
+                    )
+                if not view:
+                    # Fallback to any view with this key
+                    view = self.env['ir.ui.view'].search(
+                        [('key', '=', view_key)], limit=1
+                    )
                 if view:
                     vals['view_id'] = view.id
 

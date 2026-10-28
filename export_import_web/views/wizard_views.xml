@@ -78,10 +78,10 @@
                             <h2>Step 1 — Upload ZIP Backup</h2>
                         </div>
                         <div class="alert alert-info" role="alert">
-                            <i class="fa fa-info-circle me-2"/>
+                            <i class="fa fa-info-circle me-2" title="Info"/>
                             Upload a <code>.zip</code> file previously created by
                             <strong>Export &amp; Import Web</strong>.
-                            Only backups from <strong>Odoo 17</strong> are supported.
+                            Only backups from <strong>Odoo 18</strong> are supported.
                         </div>
                         <group>
                             <field name="zip_file" widget="binary"
@@ -99,7 +99,7 @@
                         <!-- Error banner -->
                         <div class="alert alert-danger" role="alert"
                             invisible="not has_errors">
-                            <i class="fa fa-times-circle me-2"/>
+                            <i class="fa fa-times-circle me-2" title="Error"/>
                             <strong>Validation errors — restore is blocked:</strong>
                             <field name="validation_errors" readonly="1"
                                 widget="char" nolabel="1"/>
@@ -108,7 +108,7 @@
                         <!-- Warning banner -->
                         <div class="alert alert-warning" role="alert"
                             invisible="not has_warnings">
-                            <i class="fa fa-exclamation-triangle me-2"/>
+                            <i class="fa fa-exclamation-triangle me-2" title="Warning"/>
                             <strong>Warnings:</strong>
                             <field name="validation_warnings" readonly="1"
                                 widget="char" nolabel="1"/>
@@ -128,7 +128,7 @@
                         <!-- Website mapping -->
                         <group string="Website Mapping">
                             <field name="line_ids" nolabel="1">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="source_name" readonly="1"
                                         string="Source Website"/>
                                     <field name="mode"/>
@@ -139,7 +139,7 @@
                                         invisible="mode != 'create_new'"
                                         required="mode == 'create_new'"/>
                                     <field name="source_website_uid" invisible="1"/>
-                                </tree>
+                                </list>
                             </field>
                         </group>
 
@@ -175,7 +175,7 @@
                             <h2>Restore Complete</h2>
                         </div>
                         <div class="alert alert-success" role="alert">
-                            <i class="fa fa-check-circle me-2"/>
+                            <i class="fa fa-check-circle me-2" title="Success"/>
                             The website has been restored successfully.
                         </div>
                         <group string="Result Log">

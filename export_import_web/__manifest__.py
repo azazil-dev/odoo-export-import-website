@@ -3,7 +3,7 @@
 # Author: Arif N Ramadhan
 {
     'name': 'Export & Import Web',
-    'version': '17.0.1.0.0',
+    'version': '18.0.1.0.0',
     'summary': 'Backup & restore your Odoo website (pages, menus, media, blog, events, shop) via ZIP',
     'description': """
 Export & Import Web
@@ -13,7 +13,7 @@ Backup and restore your entire Odoo website with a single ZIP file.
 Export pages, menus, custom views, media attachments, and optionally
 blog posts, events, and eCommerce catalog content.
 
-Restore to the same database or another Odoo 17 instance with automatic
+Restore to the same database or another Odoo 18 instance with automatic
 ID remapping, URL rewriting, safety snapshots, and full rollback on failure.
 
 Features
@@ -29,7 +29,7 @@ Features
 
 Limitations
 -----------
-- Restore only between instances running the same Odoo version (17.0)
+- Restore only between instances running the same Odoo version (18.0)
 - No scheduled backups (manual only)
 - No external storage (SFTP, S3) — ZIP is downloaded to your browser
     """,
