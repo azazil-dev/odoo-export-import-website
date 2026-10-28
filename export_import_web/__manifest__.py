@@ -39,7 +39,7 @@ Limitations
     'website': 'https://www.niits.id',
     'support': 'sqlrif@gmail.com',
     'license': 'OPL-1',
-    'price': 27.50,
+    'price': 14.20,
     'currency': 'USD',
     'depends': ['base', 'web', 'mail', 'website'],
     'data': [
