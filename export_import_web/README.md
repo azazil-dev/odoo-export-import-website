@@ -2,7 +2,7 @@
 
 [![Odoo Version](https://img.shields.io/badge/Odoo-19.0-875A7B.svg?style=flat-square)](https://www.odoo.com)
 [![License](https://img.shields.io/badge/License-OPL--1-blue.svg?style=flat-square)](https://www.odoo.com/documentation/19.0/legal/licenses.html)
-[![Price](https://img.shields.io/badge/Price-USD%2027.50-green.svg?style=flat-square)](https://apps.odoo.com)
+[![Price](https://img.shields.io/badge/Price-USD%2014.20-green.svg?style=flat-square)](https://apps.odoo.com)
 [![CE+EE](https://img.shields.io/badge/Edition-CE%20%26%20EE-purple.svg?style=flat-square)](https://www.odoo.com)
 
 **Backup and restore your entire Odoo website with a single ZIP file.**
