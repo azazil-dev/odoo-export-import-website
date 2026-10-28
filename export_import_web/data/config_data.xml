@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of PT Niits Inovasi Teknologi. See LICENSE file for full copyright and licensing details. -->
+<odoo noupdate="1">
+    <record id="param_max_zip_size" model="ir.config_parameter">
+        <field name="key">export_import_web.max_zip_size_mb</field>
+        <field name="value">200</field>
+    </record>
+    <record id="param_max_extract_size" model="ir.config_parameter">
+        <field name="key">export_import_web.max_extract_size_mb</field>
+        <field name="value">1024</field>
+    </record>
+    <record id="param_retention_manual" model="ir.config_parameter">
+        <field name="key">export_import_web.retention_manual</field>
+        <field name="value">5</field>
+    </record>
+    <record id="param_retention_snapshot" model="ir.config_parameter">
+        <field name="key">export_import_web.retention_snapshot</field>
+        <field name="value">3</field>
+    </record>
+    <record id="param_create_snapshot" model="ir.config_parameter">
+        <field name="key">export_import_web.create_snapshot</field>
+        <field name="value">True</field>
+    </record>
+</odoo>

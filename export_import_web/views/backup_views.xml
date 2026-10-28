@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of PT Niits Inovasi Teknologi. See LICENSE file for full copyright and licensing details. -->
+<odoo>
+
+    <!-- ============================================================== -->
+    <!-- Search view                                                     -->
+    <!-- ============================================================== -->
+    <record id="view_eiw_backup_search" model="ir.ui.view">
+        <field name="name">export.import.web.backup.search</field>
+        <field name="model">export.import.web.backup</field>
+        <field name="arch" type="xml">
+            <search string="Search Backups">
+                <field name="name" string="Name"/>
+                <field name="website_ids" string="Website"/>
+                <filter string="Manual" name="manual"
+                    domain="[('backup_type','=','manual')]"/>
+                <filter string="Auto Snapshot" name="snapshot"
+                    domain="[('backup_type','=','auto_snapshot')]"/>
+                <separator/>
+                <filter string="Done" name="done" domain="[('state','=','done')]"/>
+                <filter string="Error" name="error" domain="[('state','=','error')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Website" name="group_website"
+                        context="{'group_by': 'website_ids'}"/>
+                    <filter string="Type" name="group_type"
+                        context="{'group_by': 'backup_type'}"/>
+                    <filter string="Date" name="group_date"
+                        context="{'group_by': 'create_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================================================== -->
+    <!-- List view                                                       -->
+    <!-- ============================================================== -->
+    <record id="view_eiw_backup_list" model="ir.ui.view">
+        <field name="name">export.import.web.backup.list</field>
+        <field name="model">export.import.web.backup</field>
+        <field name="arch" type="xml">
+            <tree string="Website Backups"
+                  decoration-success="state == 'done' and backup_type == 'manual'"
+                  decoration-warning="state == 'running'"
+                  decoration-danger="state == 'error'"
+                  decoration-muted="backup_type == 'auto_snapshot'">
+                <field name="state" column_invisible="1"/>
+                <field name="backup_type" column_invisible="1"/>
+                <field name="name"/>
+                <field name="website_ids" widget="many2many_tags"/>
+                <field name="backup_type" string="Type"/>
+                <field name="file_size_kb" string="Size (KB)"/>
+                <field name="create_uid" string="Created by"/>
+                <field name="create_date" string="Date"/>
+                <field name="state" string="Status"/>
+                <button name="action_download" type="object"
+                    string="Download" icon="fa-download"
+                    invisible="state != 'done'"
+                    class="btn-sm btn-secondary"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ============================================================== -->
+    <!-- Form view                                                       -->
+    <!-- ============================================================== -->
+    <record id="view_eiw_backup_form" model="ir.ui.view">
+        <field name="name">export.import.web.backup.form</field>
+        <field name="model">export.import.web.backup</field>
+        <field name="arch" type="xml">
+            <form string="Website Backup">
+                <header>
+                    <button name="action_download" type="object"
+                        string="Download ZIP" icon="fa-download"
+                        class="btn-primary"
+                        invisible="state != 'done'"/>
+                    <button name="action_restore_from_backup" type="object"
+                        string="Restore from this Backup" icon="fa-undo"
+                        class="btn-secondary"
+                        invisible="state != 'done'"/>
+                    <button name="action_refresh_status" type="object"
+                        string="Refresh" icon="fa-refresh"
+                        class="btn-secondary"
+                        invisible="state != 'running'"/>
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="draft,running,done"/>
+                </header>
+                <sheet>
+                    <!-- Running banner -->
+                    <div class="alert alert-warning mb-0" role="alert"
+                        invisible="state != 'running'">
+                        <i class="fa fa-spinner fa-spin me-2"/>
+                        <strong>Backup is running in the background.</strong>
+                        Click <em>Refresh</em> in a few seconds to check the result.
+                    </div>
+                    <!-- Error banner -->
+                    <div class="alert alert-danger mb-0" role="alert"
+                        invisible="state != 'error'">
+                        <i class="fa fa-exclamation-triangle me-2"/>
+                        <strong>Backup failed.</strong> See the Result Log tab for details.
+                    </div>
+
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Backup name"/></h1>
+                    </div>
+
+                    <group>
+                        <group string="Backup Info">
+                            <field name="website_ids" widget="many2many_tags"/>
+                            <field name="backup_type"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="File Info">
+                            <field name="file_size_kb" string="Size (KB)" readonly="1"/>
+                            <field name="checksum" readonly="1"/>
+                            <field name="backup_filename" readonly="1"/>
+                            <field name="create_date" readonly="1" string="Created"/>
+                            <field name="create_uid" readonly="1" string="Created by"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Scope" name="scope">
+                            <field name="scope" readonly="1"
+                                widget="char"
+                                placeholder="{}"/>
+                        </page>
+                        <page string="Result Log" name="log">
+                            <field name="result_log" readonly="1"
+                                widget="html"
+                                placeholder="No log available yet."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================================================== -->
+    <!-- Actions                                                         -->
+    <!-- ============================================================== -->
+    <record id="action_eiw_backup_list" model="ir.actions.act_window">
+        <field name="name">Backups</field>
+        <field name="res_model">export.import.web.backup</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_eiw_backup_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No backups yet.
+            </p>
+            <p>
+                Click <strong>Backup Now</strong> to create your first website backup.
+            </p>
+        </field>
+    </record>
+
+</odoo>

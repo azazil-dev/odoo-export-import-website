@@ -1,0 +1,212 @@
+# Translation Template for Export & Import Web
+# Copyright (C) 2024 PT Niits Inovasi Teknologi
+# License OPL-1
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Export Import Web 17.0.1.0.0\n"
+"Report-Msgid-Bugs-To: sqlrif@gmail.com\n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Export & Import Web"
+msgstr ""
+
+msgid "Backups"
+msgstr ""
+
+msgid "Restore"
+msgstr ""
+
+msgid "Configuration"
+msgstr ""
+
+msgid "Backup Now"
+msgstr ""
+
+msgid "Website Backup"
+msgstr ""
+
+msgid "Backup Name"
+msgstr ""
+
+msgid "Websites"
+msgstr ""
+
+msgid "File Size (bytes)"
+msgstr ""
+
+msgid "Size (KB)"
+msgstr ""
+
+msgid "SHA-256 Checksum"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Manual"
+msgstr ""
+
+msgid "Auto Snapshot"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Draft"
+msgstr ""
+
+msgid "Running"
+msgstr ""
+
+msgid "Done"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Result Log"
+msgstr ""
+
+msgid "Company"
+msgstr ""
+
+msgid "Create Website Backup"
+msgstr ""
+
+msgid "Select Websites"
+msgstr ""
+
+msgid "Pages, Views, Menus & Assets"
+msgstr ""
+
+msgid "Media (Images & Attachments)"
+msgstr ""
+
+msgid "Blog Content"
+msgstr ""
+
+msgid "Events"
+msgstr ""
+
+msgid "eCommerce Catalog (Products)"
+msgstr ""
+
+msgid "Create Backup"
+msgstr ""
+
+msgid "Restore Website from ZIP"
+msgstr ""
+
+msgid "Upload ZIP Backup"
+msgstr ""
+
+msgid "ZIP File"
+msgstr ""
+
+msgid "Preview & Configure"
+msgstr ""
+
+msgid "Package Summary"
+msgstr ""
+
+msgid "Website Mapping"
+msgstr ""
+
+msgid "Source Website"
+msgstr ""
+
+msgid "Mode"
+msgstr ""
+
+msgid "Replace Existing"
+msgstr ""
+
+msgid "Create New Website"
+msgstr ""
+
+msgid "Target Website"
+msgstr ""
+
+msgid "New Website Name"
+msgstr ""
+
+msgid "Content to Restore"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Create safety snapshot before Replace"
+msgstr ""
+
+msgid "Keep existing domain (do not overwrite)"
+msgstr ""
+
+msgid "Restore Complete"
+msgstr ""
+
+msgid "Backup Started"
+msgstr ""
+
+msgid "Backup is running in the background. Refresh the page in a few seconds to check the result."
+msgstr ""
+
+msgid "Backup completed successfully."
+msgstr ""
+
+msgid "Backup failed."
+msgstr ""
+
+msgid "Restore failed."
+msgstr ""
+
+msgid "Restore completed"
+msgstr ""
+
+msgid "No websites selected for backup."
+msgstr ""
+
+msgid "Please upload a ZIP file first."
+msgstr ""
+
+msgid "Please resolve all validation errors before restoring."
+msgstr ""
+
+msgid "Please acknowledge the warnings by checking \"I have read the warnings and wish to continue\"."
+msgstr ""
+
+msgid "Version mismatch: backup was made on Odoo %s, this instance is Odoo %s. Restore is not supported across versions."
+msgstr ""
+
+msgid "manifest.json not found in ZIP."
+msgstr ""
+
+msgid "Invalid ZIP file: %s"
+msgstr ""
+
+msgid "ZIP contains a dangerous path: %s"
+msgstr ""
+
+msgid "ZIP contains too many files (%s). Maximum: %s."
+msgstr ""
+
+msgid "ZIP uncompressed size (%s MB) exceeds limit (%s MB)."
+msgstr ""
+
+msgid "ZIP compression ratio is suspicious (%sx). Possible zip bomb."
+msgstr ""
+
+msgid "Checksum mismatch for %s. ZIP may be corrupted or tampered."
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "Manager"
+msgstr ""

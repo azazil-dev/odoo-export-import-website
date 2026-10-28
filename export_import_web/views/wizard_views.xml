@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of PT Niits Inovasi Teknologi. See LICENSE file for full copyright and licensing details. -->
+<odoo>
+
+    <!-- ============================================================== -->
+    <!-- Backup Wizard                                                   -->
+    <!-- ============================================================== -->
+    <record id="view_eiw_backup_wizard_form" model="ir.ui.view">
+        <field name="name">export.import.web.backup.wizard.form</field>
+        <field name="model">export.import.web.backup.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Website Backup">
+                <sheet>
+                    <div class="oe_title">
+                        <h2>Backup Websites</h2>
+                    </div>
+                    <group string="Select Websites">
+                        <field name="website_ids" widget="many2many_checkboxes"
+                            nolabel="1"/>
+                    </group>
+                    <group string="Content to Include">
+                        <field name="include_pages"
+                            string="Pages, Views, Menus &amp; Redirects"/>
+                        <field name="include_media"
+                            string="Media (Images &amp; Attachments)"/>
+                        <field name="include_blog"
+                            string="Blog Content"
+                            invisible="not blog_available"/>
+                        <field name="include_events"
+                            string="Events"
+                            invisible="not events_available"/>
+                        <field name="include_shop"
+                            string="eCommerce Catalog (Products)"
+                            invisible="not shop_available"/>
+                        <!-- hidden computed fields for visibility -->
+                        <field name="blog_available" invisible="1"/>
+                        <field name="events_available" invisible="1"/>
+                        <field name="shop_available" invisible="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_create_backup" type="object"
+                        string="Create Backup" class="btn-primary"
+                        icon="fa-archive"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eiw_backup_wizard" model="ir.actions.act_window">
+        <field name="name">Backup Now</field>
+        <field name="res_model">export.import.web.backup.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- ============================================================== -->
+    <!-- Restore Wizard                                                  -->
+    <!-- ============================================================== -->
+    <record id="view_eiw_restore_wizard_form" model="ir.ui.view">
+        <field name="name">export.import.web.restore.wizard.form</field>
+        <field name="model">export.import.web.restore.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Restore Website from ZIP">
+                <sheet>
+                    <!-- hidden fields used in invisible modifiers -->
+                    <field name="state" invisible="1"/>
+                    <field name="has_errors" invisible="1"/>
+                    <field name="has_warnings" invisible="1"/>
+                    <field name="blog_available" invisible="1"/>
+                    <field name="events_available" invisible="1"/>
+                    <field name="shop_available" invisible="1"/>
+
+                    <!-- ====  STEP 1: Upload  ==== -->
+                    <group invisible="state != 'upload'">
+                        <div class="oe_title mb-3">
+                            <h2>Step 1 — Upload ZIP Backup</h2>
+                        </div>
+                        <div class="alert alert-info" role="alert">
+                            <i class="fa fa-info-circle me-2"/>
+                            Upload a <code>.zip</code> file previously created by
+                            <strong>Export &amp; Import Web</strong>.
+                            Only backups from <strong>Odoo 17</strong> are supported.
+                        </div>
+                        <group>
+                            <field name="zip_file" widget="binary"
+                                string="ZIP File" filename="zip_filename"/>
+                            <field name="zip_filename" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <!-- ====  STEP 2: Preview  ==== -->
+                    <group invisible="state != 'preview'">
+                        <div class="oe_title mb-3">
+                            <h2>Step 2 — Preview &amp; Configure</h2>
+                        </div>
+
+                        <!-- Error banner -->
+                        <div class="alert alert-danger" role="alert"
+                            invisible="not has_errors">
+                            <i class="fa fa-times-circle me-2"/>
+                            <strong>Validation errors — restore is blocked:</strong>
+                            <field name="validation_errors" readonly="1"
+                                widget="char" nolabel="1"/>
+                        </div>
+
+                        <!-- Warning banner -->
+                        <div class="alert alert-warning" role="alert"
+                            invisible="not has_warnings">
+                            <i class="fa fa-exclamation-triangle me-2"/>
+                            <strong>Warnings:</strong>
+                            <field name="validation_warnings" readonly="1"
+                                widget="char" nolabel="1"/>
+                            <div class="mt-2">
+                                <field name="warnings_acknowledged"/>
+                                <label for="warnings_acknowledged"
+                                    string="I have read the warnings and wish to continue"/>
+                            </div>
+                        </div>
+
+                        <!-- Summary -->
+                        <group string="Package Summary">
+                            <field name="manifest_summary" readonly="1"
+                                nolabel="1" widget="char"/>
+                        </group>
+
+                        <!-- Website mapping -->
+                        <group string="Website Mapping">
+                            <field name="line_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="source_name" readonly="1"
+                                        string="Source Website"/>
+                                    <field name="mode"/>
+                                    <field name="target_website_id"
+                                        invisible="mode != 'replace'"
+                                        required="mode == 'replace'"/>
+                                    <field name="new_website_name"
+                                        invisible="mode != 'create_new'"
+                                        required="mode == 'create_new'"/>
+                                    <field name="source_website_uid" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <!-- Scope selection -->
+                        <group string="Content to Restore">
+                            <field name="include_pages"
+                                string="Pages, Views, Menus &amp; Redirects"/>
+                            <field name="include_media"
+                                string="Media (Images &amp; Attachments)"/>
+                            <field name="include_blog"
+                                string="Blog Content"
+                                invisible="not blog_available"/>
+                            <field name="include_events"
+                                string="Events"
+                                invisible="not events_available"/>
+                            <field name="include_shop"
+                                string="eCommerce Catalog"
+                                invisible="not shop_available"/>
+                        </group>
+
+                        <!-- Options -->
+                        <group string="Options">
+                            <field name="create_snapshot"
+                                string="Create safety snapshot before Replace"/>
+                            <field name="keep_domain"
+                                string="Keep existing domain (do not overwrite)"/>
+                        </group>
+                    </group>
+
+                    <!-- ====  STEP 3: Done  ==== -->
+                    <group invisible="state != 'done'">
+                        <div class="oe_title mb-3">
+                            <h2>Restore Complete</h2>
+                        </div>
+                        <div class="alert alert-success" role="alert">
+                            <i class="fa fa-check-circle me-2"/>
+                            The website has been restored successfully.
+                        </div>
+                        <group string="Result Log">
+                            <field name="result_log" readonly="1" nolabel="1"/>
+                        </group>
+                    </group>
+
+                </sheet>
+                <footer>
+                    <!-- Step 1 footer -->
+                    <button name="action_validate" type="object"
+                        string="Validate ZIP" class="btn-primary"
+                        icon="fa-search"
+                        invisible="state != 'upload'"/>
+                    <!-- Step 2 footer -->
+                    <button name="action_restore" type="object"
+                        string="Restore" class="btn-primary"
+                        icon="fa-upload"
+                        invisible="state != 'preview'"/>
+                    <button name="action_back" type="object"
+                        string="Back" class="btn-secondary"
+                        invisible="state != 'preview'"/>
+                    <!-- Done footer -->
+                    <button special="cancel" string="Close"
+                        invisible="state != 'done'"/>
+                    <!-- Always available cancel -->
+                    <button special="cancel" string="Cancel"
+                        invisible="state == 'done'"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eiw_restore_wizard" model="ir.actions.act_window">
+        <field name="name">Restore Website</field>
+        <field name="res_model">export.import.web.restore.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- ============================================================== -->
+    <!-- Menus (here so both actions are defined before menu refs)       -->
+    <!-- ============================================================== -->
+    <record id="menu_eiw_root" model="ir.ui.menu">
+        <field name="name">Export &amp; Import Web</field>
+        <field name="parent_id" ref="website.menu_website_configuration"/>
+        <field name="sequence">100</field>
+        <field name="groups_id" eval="[(4, ref('export_import_web.group_export_import_web_manager'))]"/>
+        <field name="web_icon">export_import_web,static/description/icon.png</field>
+    </record>
+
+    <record id="menu_eiw_backups" model="ir.ui.menu">
+        <field name="name">Backups</field>
+        <field name="parent_id" ref="menu_eiw_root"/>
+        <field name="action" ref="action_eiw_backup_list"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="menu_eiw_restore" model="ir.ui.menu">
+        <field name="name">Restore</field>
+        <field name="parent_id" ref="menu_eiw_root"/>
+        <field name="action" ref="action_eiw_restore_wizard"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="menu_eiw_configuration" model="ir.ui.menu">
+        <field name="name">Configuration</field>
+        <field name="parent_id" ref="menu_eiw_root"/>
+        <field name="action" ref="website.action_website_configuration"/>
+        <field name="sequence">90</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of PT Niits Inovasi Teknologi. See LICENSE file for full copyright and licensing details. -->
+<odoo>
+
+    <!-- Module category -->
+    <record id="module_category_export_import_web" model="ir.module.category">
+        <field name="name">Export Import Web</field>
+        <field name="description">Manage website backup and restore operations</field>
+        <field name="sequence">100</field>
+    </record>
+
+    <!-- User group: can view backups and download -->
+    <record id="group_export_import_web_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_export_import_web"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Manager group: full access — create backups, restore, delete, configure -->
+    <record id="group_export_import_web_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_export_import_web"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_system'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+</odoo>

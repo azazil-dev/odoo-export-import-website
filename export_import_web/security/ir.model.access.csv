@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_eiw_backup_user,export.import.web.backup user,model_export_import_web_backup,export_import_web.group_export_import_web_user,1,0,0,0
+access_eiw_backup_manager,export.import.web.backup manager,model_export_import_web_backup,export_import_web.group_export_import_web_manager,1,1,1,1
+access_eiw_restore_wizard_manager,export.import.web.restore.wizard manager,model_export_import_web_restore_wizard,export_import_web.group_export_import_web_manager,1,1,1,1
+access_eiw_restore_line_manager,export.import.web.restore.line manager,model_export_import_web_restore_line,export_import_web.group_export_import_web_manager,1,1,1,1
+access_eiw_backup_wizard_manager,export.import.web.backup.wizard manager,model_export_import_web_backup_wizard,export_import_web.group_export_import_web_manager,1,1,1,1

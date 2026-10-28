@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of PT Niits Inovasi Teknologi. See LICENSE file for full copyright and licensing details. -->
+<odoo>
+
+    <record id="res_config_settings_view_eiw" model="ir.ui.view">
+        <field name="name">res.config.settings.eiw</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='website']" position="after">
+                <app data-string="Export &amp; Import Web"
+                     string="Export &amp; Import Web"
+                     name="export_import_web"
+                     groups="export_import_web.group_export_import_web_manager">
+                    <block title="Backup Settings" id="eiw_backup_settings">
+                        <setting string="ZIP Upload Limit (MB)"
+                            help="Maximum size of a ZIP file uploaded for restore.">
+                            <field name="eiw_max_zip_size_mb"/>
+                        </setting>
+                        <setting string="Max Uncompressed Size (MB)"
+                            help="Protects against zip bombs during restore.">
+                            <field name="eiw_max_extract_size_mb"/>
+                        </setting>
+                        <setting string="Manual Backup Retention"
+                            help="Max manual backups per website (0 = unlimited).">
+                            <field name="eiw_retention_manual"/>
+                        </setting>
+                        <setting string="Snapshot Retention"
+                            help="Max auto-snapshots per website.">
+                            <field name="eiw_retention_snapshot"/>
+                        </setting>
+                        <setting string="Snapshot before Replace"
+                            help="Auto-create a safety copy of the target website before overwriting it.">
+                            <field name="eiw_create_snapshot"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
